@@ -21,9 +21,11 @@ FROM base AS radarr
 COPY --from=build --chown=root:root /opt/Radarr /opt/Radarr
 
 RUN adduser --disabled-password radarr \
- && mkdir --verbose /data \
- && chown --verbose radarr:radarr /data \
+ && mkdir --verbose --parents /data/Radarr \
+ && chown --verbose radarr:radarr /data/Radarr \
  && chown --verbose radarr:radarr /opt/Radarr
+
+VOLUME /data/Radarr
 
 USER radarr
 
