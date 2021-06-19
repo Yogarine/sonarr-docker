@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  radarr:
+    image: yogarine/radar:${RADARR_VERSION}
+    build:
+      context: .
+      target: radarr
+      args:
+        RADARR_VERSION: "${RADARR_VERSION?:You must provide the RADARR_VERSION environment variable.}"
+    volumes:
+      - "data:/data:cached"
+    labels:
+      traefik.port: '7878'
+
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME:-radarr}_default
+  traefik:
+    name: traefik_default
+
+volumes:
+  data:
