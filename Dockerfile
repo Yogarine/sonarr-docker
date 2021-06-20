@@ -21,14 +21,14 @@ FROM base AS radarr
 COPY --from=build --chown=root:root /opt/Radarr /opt/Radarr
 
 RUN adduser --disabled-password radarr \
- && mkdir --verbose --parents /data/Radarr \
- && chown --verbose radarr:radarr /data/Radarr \
  && chown --verbose radarr:radarr /opt/Radarr
-
-VOLUME /data/Radarr
 
 USER radarr
 
+RUN mkdir --verbose --parents /home/radarr/.config/Radarr
+
+VOLUME /home/radarr/.config/Radarr
+
 WORKDIR /opt/Radarr
 
-CMD ["/opt/Radarr/Radarr", "-nobrowser", "-data=/data/Radarr"]
+CMD ["/opt/Radarr/Radarr", "-nobrowser", "-data=/home/radarr/.config/Radarr"]

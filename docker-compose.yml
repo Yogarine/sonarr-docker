@@ -9,7 +9,7 @@ services:
       args:
         RADARR_VERSION: "${RADARR_VERSION}"
     volumes:
-      - "radarr-data:/data/Radarr:cached"
+      - "radarr-data:/home/radarr/.config/Radarr:cached"
     labels:
       traefik.port: '7878'
 
