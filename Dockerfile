@@ -20,7 +20,8 @@ RUN tar --extract --file '/root/Radarr.linux-core-x64.tar.gz' --directory '/opt'
 FROM base AS radarr
 COPY --from=build --chown=root:root /opt/Radarr /opt/Radarr
 
-RUN adduser --disabled-password radarr \
+RUN addgroup --gid 666 radarr \
+ && adduser --disabled-password --uid 666 --gid 666 radarr \
  && chown --verbose radarr:radarr /opt/Radarr
 
 USER radarr
