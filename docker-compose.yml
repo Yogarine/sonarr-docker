@@ -1,17 +1,17 @@
 version: '3.9'
 
 services:
-  radarr:
-    image: yogarine/radar:${RADARR_VERSION}
+  sonarr:
+    image: yogarine/sonarr:${SONARR_VERSION}
     build:
       context: .
-      target: radarr
+      target: sonarr
       args:
-        RADARR_VERSION: "${RADARR_VERSION}"
+        SONARR_VERSION: "${SONARR_VERSION}"
     volumes:
-      - "radarr-data:/home/radarr/.config/Radarr:cached"
+      - "sonarr-data:/home/sonarr/.config/Sonarr:cached"
     labels:
-      traefik.port: '7878'
+      traefik.port: '8989'
 
 volumes:
-  radarr-data:
+  sonarr-data:

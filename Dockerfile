@@ -10,26 +10,26 @@ RUN apt-get --yes --quiet update \
 
 
 FROM ubuntu:${DISTRIB_CODENAME} AS build
-ARG RADARR_VERSION
+ARG SONARR_VERSION
 
-ADD ["https://radarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64&version=${RADARR_VERSION}", "/root/Radarr.linux-core-x64.tar.gz"]
+ADD ["https://sonarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64&version=${SONARR_VERSION}", "/root/Sonarr.linux-core-x64.tar.gz"]
 
-RUN tar --extract --file '/root/Radarr.linux-core-x64.tar.gz' --directory '/opt'
+RUN tar --extract --file '/root/Sonarr.linux-core-x64.tar.gz' --directory '/opt'
 
 
-FROM base AS radarr
-COPY --from=build --chown=root:root /opt/Radarr /opt/Radarr
+FROM base AS sonarr
+COPY --from=build --chown=root:root /opt/Sonarr /opt/Sonarr
 
-RUN addgroup --gid 666 radarr \
- && adduser --disabled-password --uid 666 --gid 666 radarr \
- && chown --verbose radarr:radarr /opt/Radarr
+RUN addgroup --gid 666 sonarr \
+ && adduser --disabled-password --uid 666 --gid 666 sonarr \
+ && chown --verbose sonarr:sonarr /opt/Sonarr
 
-USER radarr
+USER sonarr
 
-RUN mkdir --verbose --parents /home/radarr/.config/Radarr
+RUN mkdir --verbose --parents /home/sonarr/.config/Sonarr
 
-VOLUME /home/radarr/.config/Radarr
+VOLUME /home/sonarr/.config/Sonarr
 
-WORKDIR /opt/Radarr
+WORKDIR /opt/Sonarr
 
-CMD ["/opt/Radarr/Radarr", "-nobrowser", "-data=/home/radarr/.config/Radarr"]
+CMD ["/opt/Sonarr/Sonarr", "-nobrowser", "-data=/home/sonarr/.config/Sonarr"]

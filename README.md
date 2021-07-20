@@ -1,1 +1,1 @@
-# Docker image for Radarr
+# Docker image for Sonarr
