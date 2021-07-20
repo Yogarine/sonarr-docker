@@ -12,9 +12,11 @@ RUN apt-get --yes --quiet update \
 FROM ubuntu:${DISTRIB_CODENAME} AS build
 ARG SONARR_VERSION
 
-ADD ["https://sonarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64&version=${SONARR_VERSION}", "/root/Sonarr.linux-core-x64.tar.gz"]
 
-RUN tar --extract --file '/root/Sonarr.linux-core-x64.tar.gz' --directory '/opt'
+ADD ["https://download.sonarr.tv/v3/main/${SONARR_VERSION}/Sonarr.main.${SONARR_VERSION}.linux.tar.gz", "/root/Sonarr.main.linux.tar.gz"]
+#ADD ["https://services.sonarr.tv/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64&version=${SONARR_VERSION}", "/root/Sonarr.linux-core-x64.tar.gz"]
+
+RUN tar --extract --file '/root/Sonarr.main.linux.tar.gz' --directory '/opt'
 
 
 FROM base AS sonarr
