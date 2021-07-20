@@ -5,11 +5,10 @@ services:
     image: yogarine/sonarr:${SONARR_VERSION}
     build:
       context: .
-      target: sonarr
       args:
         SONARR_VERSION: "${SONARR_VERSION}"
     volumes:
-      - "sonarr-data:/home/sonarr/.config/Sonarr:cached"
+      - "sonarr-data:/var/lib/sonarr:cached"
     labels:
       traefik.port: '8989'
 
